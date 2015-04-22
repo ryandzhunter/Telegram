@@ -1,7 +1,6 @@
 package org.kudrenko.telegram.ui.drawer;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -17,7 +16,6 @@ import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.TelegramApplication;
-import org.kudrenko.telegram.ui.LoginActivity_;
 
 @EBean
 public class DrawerWorker implements Drawer.OnDrawerListener, Drawer.OnDrawerItemClickListener {
@@ -57,7 +55,7 @@ public class DrawerWorker implements Drawer.OnDrawerListener, Drawer.OnDrawerIte
                 ((TelegramApplication) activity.getApplication()).send(new TdApi.AuthReset(), new Client.ResultHandler() {
                     @Override
                     public void onResult(TdApi.TLObject object) {
-                        LoginActivity_.intent(activity).start();
+                        //LoginActivity_.intent(activity).start();
                         activity.finish();
                     }
                 });

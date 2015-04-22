@@ -6,4 +6,11 @@
     <string name="check_code">Check code</string>
     <string name="log_out">Log out</string>
     <string name="title_chat">Messages</string>
+    <string name="phone_info">We will send an SMS with a confirmation code to your phone number</string>
+    <string name="input_phone">Input phone number</string>
+    <string name="toolbar_phone_title">Phone number</string>
+    <string name="toolbar_country_title">Country</string>
+    <string name="toolbar_code_title">Activation code</string>
+    <string name="code_info">We\'ve sent an SMS with an activation code to your number</string>
+    <string name="input_code">Input code</string>
 </resources>

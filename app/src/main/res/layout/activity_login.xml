@@ -2,32 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/phone"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="@string/phone_hint"
-        android:text="+79270169625"/>
-
-    <EditText
-        android:id="@+id/code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/code_hint"/>
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/send_code" />
-
-    <Button
-        android:id="@+id/checkCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/check_code"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

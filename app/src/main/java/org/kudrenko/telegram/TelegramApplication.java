@@ -62,7 +62,8 @@ public class TelegramApplication extends Application {
                     if (object instanceof TdApi.AuthState)
                         onAuthStateUpdate((TdApi.AuthState) object);
 
-                    handler.onResult(object);
+                    if (handler != null)
+                        handler.onResult(object);
                 }
             });
         }

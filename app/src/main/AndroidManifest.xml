@@ -8,7 +8,7 @@
         android:icon="@mipmap/ic_launcher" android:theme="@style/AppTheme"
         android:name=".TelegramApplication_">
 
-        <activity android:name=".ui.LoginActivity_">
+        <activity android:name=".ui.login.LoginActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

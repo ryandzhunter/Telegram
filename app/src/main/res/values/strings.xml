@@ -13,4 +13,5 @@
     <string name="toolbar_code_title">Activation code</string>
     <string name="code_info">We\'ve sent an SMS with an activation code to your number</string>
     <string name="input_code">Input code</string>
+    <string name="choose_a_country">Choose a country</string>
 </resources>

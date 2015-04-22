@@ -23,17 +23,8 @@ public class PhoneInputFragment extends Fragment {
     @ViewById(R.id.number)
     EditText phoneEtx;
 
-    @Click(R.id.country_code)
-    void onCountryCodeClick() {
-        countrySelect();
-    }
-
     @Click(R.id.country)
     void onCountryNameClick() {
-        countrySelect();
-    }
-
-    private void countrySelect() {
         ((LoginActivity) getActivity()).showCountriesDialog();
     }
 

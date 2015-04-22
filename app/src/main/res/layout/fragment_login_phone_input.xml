@@ -12,11 +12,13 @@
         android:orientation="vertical"
         android:padding="16dip">
 
-        <EditText
+        <Button
             android:id="@+id/country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:background="@android:drawable/edit_text"
+            android:text="@string/choose_a_country"
+            android:gravity="center_vertical|left" />
 
         <LinearLayout
             android:layout_width="match_parent"

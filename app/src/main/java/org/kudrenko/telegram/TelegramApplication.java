@@ -10,6 +10,7 @@ import org.drinkless.td.libcore.telegram.TG;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.otto.OttoBus;
 import org.kudrenko.telegram.otto.events.AuthStateUpdateEvent;
+import org.kudrenko.telegram.storage.CountriesDatabaseHelper;
 
 @EApplication
 public class TelegramApplication extends Application {
@@ -17,6 +18,7 @@ public class TelegramApplication extends Application {
 
     private Client client;
     private TdApi.AuthState authState;
+    private CountriesDatabaseHelper countriesDatabaseHelper;
 
     @Bean
     OttoBus ottoBus;
@@ -27,6 +29,7 @@ public class TelegramApplication extends Application {
 
         initClient();
         getCurrentAuthState();
+        countriesDatabaseHelper = new CountriesDatabaseHelper(this);
     }
 
     private void initClient() {

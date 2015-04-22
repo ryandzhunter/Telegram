@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Telegram</string>
+    <string name="phone_hint">+0123456789</string>
+    <string name="send_code">Send code</string>
+    <string name="code_hint">Code</string>
+    <string name="check_code">Check code</string>
+    <string name="log_out">Log out</string>
+    <string name="title_chat">Messages</string>
+</resources>

@@ -5,7 +5,6 @@ import android.widget.EditText;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.ui.AbsTelegramFragment;
@@ -33,13 +32,6 @@ public class PhoneInputFragment extends AbsTelegramFragment {
     @Click(R.id.menu_options_icon)
     void onConfirm() {
         String phoneStr = phoneEtx.getText().toString().trim();
-        application.send(new TdApi.AuthSetPhoneNumber(phoneStr), new Client.ResultHandler() {
-            @Override
-            public void onResult(TdApi.TLObject object) {
-                if (object.getConstructor() == TdApi.Error.CONSTRUCTOR) {
-                    onError((TdApi.Error) object);
-                }
-            }
-        });
+        application.send(new TdApi.AuthSetPhoneNumber(phoneStr), resultHandler());
     }
 }

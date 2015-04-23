@@ -1,5 +1,6 @@
 package org.kudrenko.telegram.ui.login;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.squareup.otto.Subscribe;
@@ -49,7 +50,7 @@ public class LoginActivity extends AbsTelegramActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        getSupportFragmentManager().popBackStackImmediate();
+        getSupportFragmentManager().popBackStack();
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             finish();
         }
@@ -58,8 +59,17 @@ public class LoginActivity extends AbsTelegramActivity {
     protected void openFragment(AbsTelegramFragment fragment, boolean withSlidingAnimation) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (withSlidingAnimation) {
-            transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
+                    R.anim.slide_in_left, R.anim.slide_out_right);
         }
         transaction.replace(R.id.content, fragment).addToBackStack(null).commit();
+    }
+
+    public void close(AbsTelegramFragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(fragment);
+        manager.popBackStack();
+        transaction.commit();
     }
 }

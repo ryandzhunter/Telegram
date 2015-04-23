@@ -11,7 +11,6 @@ import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.otto.events.AuthStateUpdateEvent;
@@ -49,14 +48,7 @@ public class LoginActivity extends AbsTelegramActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        send(new TdApi.AuthGetState(), new Client.ResultHandler() {
-            @Override
-            public void onResult(TdApi.TLObject object) {
-                if (object instanceof TdApi.AuthState) {
-                    onAuthStateSet((TdApi.AuthState) object);
-                }
-            }
-        });
+        send(new TdApi.AuthGetState());
     }
 
     @Subscribe

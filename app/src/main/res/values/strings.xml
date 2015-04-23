@@ -13,5 +13,14 @@
     <string name="toolbar_code_title">Activation code</string>
     <string name="code_info">We\'ve sent an SMS with an activation code to your number</string>
     <string name="input_code">Input code</string>
-    <string name="choose_a_country">Choose a country</string>
+    <string name="toolbar_name_title">Your name</string>
+    <string name="name_info">Set up your first name and last name</string>
+    <string name="first_name_hint">First name (required)</string>
+    <string name="last_name_hint">Last name (optional)</string>
+    <string name="error">Error</string>
+    <string name="country_default_text">Choose a country</string>
+    <string name="error_phone_number_invalid">Phone number is invalid</string>
+    <string name="error_phone_code_empty">Code is empty</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_phone_code_invalid">Phone code is invalid</string>
 </resources>

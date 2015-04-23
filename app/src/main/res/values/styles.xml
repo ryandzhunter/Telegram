@@ -1,15 +1,29 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="action_bar_common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:background">@color/color_toolbar</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="action_bar_padding" parent="action_bar_common">
+        <item name="android:paddingLeft">16dp</item>
     </style>
 
     <style name="menu_icon_common">
         <item name="android:id">@id/menu_icon</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_width">?attr/actionBarSize</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">center</item>
     </style>
 
     <style name="menu_icon_hamburger" parent="menu_icon_common">
@@ -25,25 +39,45 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_marginLeft">8dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
     <style name="menu_options_icon_common">
         <item name="android:id">@id/menu_options_icon</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_width">?attr/actionBarSize</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">center</item>
     </style>
 
-    <style name="menu_options_icon_check">
-        <item name="android:id">@id/menu_options_icon</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
+    <style name="menu_options_icon_check" parent="menu_options_icon_common">
         <item name="android:src">@drawable/ic_check</item>
+    </style>
+
+    <style name="edit_text_common">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="fragment_content_layout_common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="login_info_text_common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="main_layout">
+        <item name="android:id">@id/content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 </resources>

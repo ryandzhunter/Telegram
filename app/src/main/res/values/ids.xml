@@ -3,4 +3,5 @@
     <item name="menu_icon" type="id"/>
     <item name="menu_options_icon" type="id"/>
     <item name="title" type="id"/>
+    <item name="content" type="id"/>
 </resources>

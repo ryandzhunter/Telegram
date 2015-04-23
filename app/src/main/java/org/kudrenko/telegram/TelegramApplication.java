@@ -43,15 +43,6 @@ public class TelegramApplication extends Application {
         client = TG.getClientInstance();
     }
 
-    private void getCurrentAuthState() {
-        client.send(new TdApi.AuthGetState(), new Client.ResultHandler() {
-            @Override
-            public void onResult(TdApi.TLObject object) {
-                onAuthStateUpdate((TdApi.AuthState) object);
-            }
-        });
-    }
-
     private void onAuthStateUpdate(TdApi.AuthState authState) {
         this.authState = authState;
         ottoBus.post(new AuthStateUpdateEvent(authState));

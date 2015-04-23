@@ -1,48 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/fragment_content_layout_common">
 
-    <include layout="@layout/item_toolbar_login_phone" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dip">
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="true"
+        android:inputType="none"
+        android:text="@string/country_default_text"
+        style="@style/edit_text_common" />
 
-        <Button
-            android:id="@+id/country"
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/country_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:text="@string/choose_a_country"
-            android:gravity="center_vertical|left" />
+            android:layout_weight="8"
+            android:inputType="number"
+            style="@style/edit_text_common" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/country_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:inputType="none" />
-
-            <EditText
-                android:id="@+id/number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:inputType="number" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/phone_info" />
+            android:layout_weight="2"
+            android:inputType="phone"
+            android:hint="@string/phone_hint"
+            style="@style/edit_text_common" />
     </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="16dp"
+        style="@style/login_info_text_common"
+        android:text="@string/phone_info" />
 </LinearLayout>

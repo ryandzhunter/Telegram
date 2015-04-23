@@ -24,9 +24,9 @@ import org.kudrenko.telegram.ui.login.fragment.PhoneInputFragment_;
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends AbsTelegramActivity {
     public static final int PAGE_COUNT = 3;
-    public static final int PHONE_PAGE_IDX = 0;
-    public static final int CODE_PAGE_IDX = 1;
-    public static final int NAME_PAGE_IDX = 2;
+    public static final int IDX_PAGE_PHONE = 0;
+    public static final int IDX_PAGE_CODE = 1;
+    public static final int IDX_PAGE_NAME = 2;
 
     @ViewById
     ViewPager pager;
@@ -42,7 +42,7 @@ public class LoginActivity extends AbsTelegramActivity {
         pager.setAdapter(adapter);
         pager.setOnPageChangeListener(adapter);
         pager.setOffscreenPageLimit(PAGE_COUNT);
-        adapter.onPageSelected(PHONE_PAGE_IDX);
+        adapter.onPageSelected(IDX_PAGE_PHONE);
     }
 
     @Override
@@ -59,11 +59,11 @@ public class LoginActivity extends AbsTelegramActivity {
 
     private void onAuthStateSet(TdApi.AuthState state) {
         if (state.getConstructor() == TdApi.AuthStateWaitSetPhoneNumber.CONSTRUCTOR) {
-            pager.setCurrentItem(PHONE_PAGE_IDX, true);
+            pager.setCurrentItem(IDX_PAGE_PHONE, true);
         } else if (state.getConstructor() == TdApi.AuthStateWaitSetCode.CONSTRUCTOR) {
-            pager.setCurrentItem(CODE_PAGE_IDX, true);
+            pager.setCurrentItem(IDX_PAGE_CODE, true);
         } else if (state.getConstructor() == TdApi.AuthStateWaitSetName.CONSTRUCTOR) {
-            pager.setCurrentItem(NAME_PAGE_IDX, true);
+            pager.setCurrentItem(IDX_PAGE_NAME, true);
         } else if (state.getConstructor() == TdApi.AuthStateOk.CONSTRUCTOR) {
             ChatsActivity_.intent(this).start();
             finish();
@@ -135,13 +135,13 @@ public class LoginActivity extends AbsTelegramActivity {
         public void open(int position) {
             actionBar.removeAllViews();
             switch (position) {
-                case PHONE_PAGE_IDX:
+                case IDX_PAGE_PHONE:
                     View.inflate(activity, R.layout.item_toolbar_login_phone, actionBar);
                     break;
-                case CODE_PAGE_IDX:
+                case IDX_PAGE_CODE:
                     View.inflate(activity, R.layout.item_toolbar_login_code, actionBar);
                     break;
-                case NAME_PAGE_IDX:
+                case IDX_PAGE_NAME:
                     View.inflate(activity, R.layout.item_toolbar_login_name, actionBar);
                     break;
             }
@@ -156,11 +156,11 @@ public class LoginActivity extends AbsTelegramActivity {
 
         public AbsLoginFragment create(int position) {
             switch (position) {
-                case PHONE_PAGE_IDX:
+                case IDX_PAGE_PHONE:
                     return PhoneInputFragment_.builder().build();
-                case CODE_PAGE_IDX:
+                case IDX_PAGE_CODE:
                     return CodeInputFragment_.builder().build();
-                case NAME_PAGE_IDX:
+                case IDX_PAGE_NAME:
                     return NameInputFragment_.builder().build();
             }
             return null;

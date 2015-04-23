@@ -21,7 +21,7 @@ public abstract class AbsTelegramFragment extends Fragment {
     @UiThread
     protected void showError(TdApi.Error error) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.error).setMessage(Errors.find(error.text));
+        builder.setTitle(R.string.error).setMessage(localizeError(error));
         builder.show();
     }
 
@@ -54,5 +54,9 @@ public abstract class AbsTelegramFragment extends Fragment {
 
     public void send(TdApi.TLFunction function, Client.ResultHandler handler) {
         application.send(function, handler);
+    }
+
+    public int localizeError(TdApi.Error error) {
+        return Errors.find(error.text);
     }
 }

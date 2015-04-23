@@ -17,4 +17,10 @@ public class CodeInputFragment extends AbsLoginFragment {
         String codeStr = codeEtx.getText().toString().trim();
         send(new TdApi.AuthSetCode(codeStr), resultHandler());
     }
+
+    @Override
+    protected void onError(TdApi.Error error) {
+        super.onError(error);
+        codeEtx.setError(getString(localizeError(error)));
+    }
 }

@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/action_bar_common">
 
-    <ImageView style="@style/menu_icon_back" />
-
     <TextView
         style="@style/menu_title_common"
-        android:text="@string/toolbar_country_title" />
+        android:text="@string/toolbar_name_title" />
 
+    <ImageView style="@style/menu_options_icon_check" />
 </LinearLayout>

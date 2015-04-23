@@ -1,11 +1,14 @@
 package org.kudrenko.telegram.ui.login;
 
+import android.support.v4.app.FragmentTransaction;
+
 import com.squareup.otto.Subscribe;
 
 import org.androidannotations.annotations.EActivity;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.otto.events.AuthStateUpdateEvent;
+import org.kudrenko.telegram.ui.AbsTelegramFragment;
 import org.kudrenko.telegram.ui.chat.ChatsActivity_;
 import org.kudrenko.telegram.ui.common.AbsTelegramActivity;
 
@@ -15,24 +18,20 @@ public class LoginActivity extends AbsTelegramActivity {
     @Subscribe
     public void onAuthStateUpdate(AuthStateUpdateEvent event) {
         TdApi.AuthState state = event.state;
-        if (state instanceof TdApi.AuthStateWaitSetPhoneNumber) {
+        if (state.getConstructor() == TdApi.AuthStateWaitSetPhoneNumber.CONSTRUCTOR) {
             showPhoneDialog();
-        } else if (state instanceof TdApi.AuthStateWaitSetCode) {
+        } else if (state.getConstructor() == TdApi.AuthStateWaitSetCode.CONSTRUCTOR) {
             showCodeDialog();
-        } else if (state instanceof TdApi.AuthStateWaitSetName) {
+        } else if (state.getConstructor() == TdApi.AuthStateWaitSetName.CONSTRUCTOR) {
             showNameDialog();
-        } else if (state instanceof TdApi.AuthStateOk) {
+        } else if (state.getConstructor() == TdApi.AuthStateOk.CONSTRUCTOR) {
             ChatsActivity_.intent(this).start();
             finish();
         }
     }
 
     public void showPhoneDialog() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content, PhoneInputFragment_.builder().build())
-                .addToBackStack(null)
-                .commit();
+        openFragment(PhoneInputFragment_.builder().build(), false);
     }
 
     public void showCountriesDialog() {
@@ -40,15 +39,11 @@ public class LoginActivity extends AbsTelegramActivity {
     }
 
     public void showCodeDialog() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content, CodeInputFragment_.builder().build())
-                .addToBackStack(null)
-                .commit();
+        openFragment(CodeInputFragment_.builder().build(), true);
     }
 
     public void showNameDialog() {
-
+        openFragment(NameInputFragment_.builder().build(), true);
     }
 
     @Override
@@ -58,5 +53,13 @@ public class LoginActivity extends AbsTelegramActivity {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             finish();
         }
+    }
+
+    protected void openFragment(AbsTelegramFragment fragment, boolean withAnimation) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (withAnimation) {
+            transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        }
+        transaction.replace(R.id.content, fragment).addToBackStack(null).commit();
     }
 }

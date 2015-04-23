@@ -13,4 +13,8 @@
     <string name="toolbar_code_title">Activation code</string>
     <string name="code_info">We\'ve sent an SMS with an activation code to your number</string>
     <string name="input_code">Input code</string>
+    <string name="toolbar_name_title">Your name</string>
+    <string name="name_info">Set up your first name and last name</string>
+    <string name="first_name_hint">First name (required)</string>
+    <string name="last_name_hint">Last name (optional)</string>
 </resources>

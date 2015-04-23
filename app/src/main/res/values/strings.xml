@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Telegram</string>
-    <string name="phone_hint">+0123456789</string>
+    <string name="phone_hint">Phone number</string>
     <string name="send_code">Send code</string>
     <string name="code_hint">Code</string>
     <string name="check_code">Check code</string>
@@ -18,4 +18,5 @@
     <string name="first_name_hint">First name (required)</string>
     <string name="last_name_hint">Last name (optional)</string>
     <string name="error">Error</string>
+    <string name="country_default_text">Choose a country</string>
 </resources>

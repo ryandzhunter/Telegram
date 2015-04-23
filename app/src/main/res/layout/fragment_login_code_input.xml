@@ -6,22 +6,31 @@
 
     <include layout="@layout/item_toolbar_login_code" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dip">
+    <LinearLayout style="@style/fragment_content_layout_common">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/login_info_text_common"
             android:text="@string/code_info" />
 
-        <EditText
-            android:id="@+id/code"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:hint="@string/code_hint"
+                style="@style/edit_text_common"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

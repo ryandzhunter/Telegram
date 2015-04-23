@@ -6,19 +6,21 @@
 
     <include layout="@layout/item_toolbar_login_phone" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dip">
+    <LinearLayout style="@style/fragment_content_layout_common">
 
         <EditText
             android:id="@+id/country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            android:inputType="none"
+            android:text="@string/country_default_text"
+            style="@style/edit_text_common"/>
 
         <LinearLayout
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -27,20 +29,23 @@
                 android:id="@+id/country_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:inputType="none" />
+                android:layout_weight="8"
+                android:inputType="none"
+                style="@style/edit_text_common"/>
 
             <EditText
                 android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:inputType="number" />
+                android:layout_weight="2"
+                android:inputType="number"
+                android:hint="@string/phone_hint"
+                style="@style/edit_text_common"/>
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            style="@style/login_info_text_common"
             android:text="@string/phone_info" />
     </LinearLayout>
 </LinearLayout>

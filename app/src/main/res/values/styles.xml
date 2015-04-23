@@ -54,4 +54,22 @@
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:src">@drawable/ic_check</item>
     </style>
+
+    <style name="edit_text_common">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="fragment_content_layout_common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="login_info_text_common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
 </resources>

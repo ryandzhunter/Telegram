@@ -88,12 +88,10 @@ public class LoginActivity extends AbsTelegramActivity {
     }
 
     class LoginFragmentsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
-        protected LoginActivity activity;
         protected ActionBarWorker worker;
 
         public LoginFragmentsPagerAdapter(LoginActivity activity) {
             super(activity.getSupportFragmentManager());
-            this.activity = activity;
             worker = new ActionBarWorker(activity);
         }
 

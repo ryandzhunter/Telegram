@@ -26,7 +26,6 @@ public class TelegramApplication extends Application {
         super.onCreate();
 
         initClient();
-        getCurrentAuthState();
     }
 
     private void initClient() {
@@ -38,15 +37,6 @@ public class TelegramApplication extends Application {
             }
         });
         client = TG.getClientInstance();
-    }
-
-    private void getCurrentAuthState() {
-        client.send(new TdApi.AuthGetState(), new Client.ResultHandler() {
-            @Override
-            public void onResult(TdApi.TLObject object) {
-                onAuthStateUpdate((TdApi.AuthState) object);
-            }
-        });
     }
 
     private void onAuthStateUpdate(TdApi.AuthState authState) {

@@ -1,26 +1,23 @@
-package org.kudrenko.telegram.ui.login;
+package org.kudrenko.telegram.ui.login.fragment;
 
 import android.widget.EditText;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
-import org.kudrenko.telegram.ui.AbsTelegramFragment;
 
 @EFragment(R.layout.fragment_login_name_input)
-public class NameInputFragment extends AbsTelegramFragment {
+public class NameInputFragment extends AbsLoginFragment {
     @ViewById(R.id.first_name)
     EditText firstName;
 
     @ViewById(R.id.last_name)
     EditText lastName;
 
-    @Click(R.id.menu_options_icon)
-    void onConfirm() {
+    public void onConfirm() {
         String firstNameStr = firstName.getText().toString().trim();
         String lastNameStr = lastName.getText().toString().trim();
-        application.send(new TdApi.AuthSetName(firstNameStr, lastNameStr), resultHandler());
+        send(new TdApi.AuthSetName(firstNameStr, lastNameStr), resultHandler());
     }
 }

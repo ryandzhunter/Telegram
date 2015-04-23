@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/fragment_content_layout_common">
 
-    <include layout="@layout/item_toolbar_login_name" />
+    <TextView
+        style="@style/login_info_text_common"
+        android:text="@string/name_info" />
 
-    <LinearLayout style="@style/fragment_content_layout_common">
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/first_name_hint"
+        android:layout_marginBottom="8dp"
+        style="@style/edit_text_common" />
 
-        <TextView
-            style="@style/login_info_text_common"
-            android:text="@string/name_info" />
-
-        <EditText
-            android:id="@+id/first_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="@string/first_name_hint"
-            android:layout_marginBottom="8dp"
-            style="@style/edit_text_common"/>
-
-        <EditText
-            android:id="@+id/last_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="@string/last_name_hint"
-            style="@style/edit_text_common"/>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/last_name_hint"
+        style="@style/edit_text_common" />
 
 </LinearLayout>

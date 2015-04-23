@@ -1,4 +1,4 @@
-package org.kudrenko.telegram.ui.login;
+package org.kudrenko.telegram.ui.login.fragment;
 
 import android.widget.EditText;
 
@@ -7,10 +7,10 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
-import org.kudrenko.telegram.ui.AbsTelegramFragment;
+import org.kudrenko.telegram.ui.login.LoginActivity;
 
 @EFragment(R.layout.fragment_login_phone_input)
-public class PhoneInputFragment extends AbsTelegramFragment {
+public class PhoneInputFragment extends AbsLoginFragment {
 
     @ViewById(R.id.number)
     EditText phoneEtx;
@@ -29,9 +29,9 @@ public class PhoneInputFragment extends AbsTelegramFragment {
         ((LoginActivity) getActivity()).showCountriesDialog();
     }
 
-    @Click(R.id.menu_options_icon)
-    void onConfirm() {
+    @Override
+    public void onConfirm() {
         String phoneStr = phoneEtx.getText().toString().trim();
-        application.send(new TdApi.AuthSetPhoneNumber(phoneStr), resultHandler());
+        send(new TdApi.AuthSetPhoneNumber(phoneStr), resultHandler());
     }
 }

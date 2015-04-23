@@ -50,4 +50,8 @@ public abstract class AbsTelegramFragment extends Fragment {
         super.onDestroy();
         Log.d("onDestroy", getClass().getName());
     }
+
+    public void send(TdApi.TLFunction function, Client.ResultHandler handler) {
+        application.send(function, handler);
+    }
 }

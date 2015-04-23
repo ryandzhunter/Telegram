@@ -9,18 +9,19 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
         <item name="android:background">@color/color_toolbar</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="action_bar_padding" parent="action_bar_common">
+        <item name="android:paddingLeft">16dp</item>
     </style>
 
     <style name="menu_icon_common">
         <item name="android:id">@id/menu_icon</item>
         <item name="android:layout_width">?attr/actionBarSize</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:layout_marginRight">8dp</item>
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">center</item>
     </style>
@@ -46,13 +47,12 @@
         <item name="android:id">@id/menu_options_icon</item>
         <item name="android:layout_width">?attr/actionBarSize</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:layout_marginLeft">8dp</item>
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">center</item>
     </style>
 
     <style name="menu_options_icon_check" parent="menu_options_icon_common">
-        <item name="android:src">@drawable/ic_check_drawable</item>
+        <item name="android:src">@drawable/ic_check</item>
     </style>
 
     <style name="edit_text_common">

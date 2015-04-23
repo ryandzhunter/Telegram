@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.drinkless.td.libcore.telegram.Client;
+import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.TelegramApplication;
 import org.kudrenko.telegram.otto.OttoBus;
 
@@ -28,5 +30,9 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
     protected void onStop() {
         super.onStop();
         ottoBus.unregister(this);
+    }
+
+    public void send(TdApi.TLFunction function, Client.ResultHandler handler) {
+        application.send(function, handler);
     }
 }

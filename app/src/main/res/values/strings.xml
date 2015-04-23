@@ -17,4 +17,5 @@
     <string name="name_info">Set up your first name and last name</string>
     <string name="first_name_hint">First name (required)</string>
     <string name="last_name_hint">Last name (optional)</string>
+    <string name="error">Error</string>
 </resources>

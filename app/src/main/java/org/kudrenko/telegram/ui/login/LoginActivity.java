@@ -35,7 +35,7 @@ public class LoginActivity extends AbsTelegramActivity {
     }
 
     public void showCountriesDialog() {
-
+        openFragment(CountriesChooserFragment_.builder().build(), true);
     }
 
     public void showCodeDialog() {
@@ -55,9 +55,9 @@ public class LoginActivity extends AbsTelegramActivity {
         }
     }
 
-    protected void openFragment(AbsTelegramFragment fragment, boolean withAnimation) {
+    protected void openFragment(AbsTelegramFragment fragment, boolean withSlidingAnimation) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (withAnimation) {
+        if (withSlidingAnimation) {
             transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         }
         transaction.replace(R.id.content, fragment).addToBackStack(null).commit();

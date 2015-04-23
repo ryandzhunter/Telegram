@@ -23,7 +23,7 @@ public class CodeInputFragment extends AbsTelegramFragment {
             @Override
             public void onResult(TdApi.TLObject object) {
                 if (object.getConstructor() == TdApi.Error.CONSTRUCTOR) {
-                    showWrongCodeError();
+                    onError((TdApi.Error) object);
                 }
             }
         });
@@ -32,9 +32,5 @@ public class CodeInputFragment extends AbsTelegramFragment {
     @Click(R.id.menu_icon)
     void onBackClick() {
         getActivity().onBackPressed();
-    }
-
-    private void showWrongCodeError() {
-        //todo
     }
 }

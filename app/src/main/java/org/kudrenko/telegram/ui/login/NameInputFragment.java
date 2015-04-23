@@ -25,7 +25,7 @@ public class NameInputFragment extends AbsTelegramFragment {
         application.send(new TdApi.AuthSetName(firstNameStr, lastNameStr), new Client.ResultHandler() {
             @Override
             public void onResult(TdApi.TLObject object) {
-
+                onError((TdApi.Error) object);
             }
         });
     }

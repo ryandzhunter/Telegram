@@ -37,13 +37,9 @@ public class PhoneInputFragment extends AbsTelegramFragment {
             @Override
             public void onResult(TdApi.TLObject object) {
                 if (object.getConstructor() == TdApi.Error.CONSTRUCTOR) {
-                    showWrongPhoneError();
+                    onError((TdApi.Error) object);
                 }
             }
         });
-    }
-
-    private void showWrongPhoneError() {
-        //todo
     }
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/action_bar_padding">
+    style="@style/action_bar_common">
+
+    <ImageView style="@style/menu_icon_back" />
 
     <TextView
         style="@style/menu_title_common"

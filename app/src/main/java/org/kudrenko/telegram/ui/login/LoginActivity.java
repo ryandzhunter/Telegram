@@ -1,6 +1,5 @@
 package org.kudrenko.telegram.ui.login;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -83,6 +82,7 @@ public class LoginActivity extends AbsTelegramActivity {
     }
 
     public void scrollBack() {
+        //todo возможно, что после телефона будет ввод имени, а не кода
         int currentItem = pager.getCurrentItem();
         if (currentItem > 0) {
             pager.setCurrentItem(currentItem - 1, true);
@@ -96,12 +96,12 @@ public class LoginActivity extends AbsTelegramActivity {
     }
 
     class LoginFragmentsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
-        protected Context mContext;
+        protected LoginActivity activity;
         protected ActionBarWorker worker;
 
         public LoginFragmentsPagerAdapter(LoginActivity activity) {
             super(activity.getSupportFragmentManager());
-            mContext = activity;
+            this.activity = activity;
             worker = new ActionBarWorker(activity);
         }
 
@@ -134,8 +134,6 @@ public class LoginActivity extends AbsTelegramActivity {
         protected LinearLayout actionBar;
         protected LoginFragmentsPagerAdapter adapter;
 
-        protected int current;
-
         public ActionBarWorker(LoginActivity activity) {
             this.activity = activity;
             this.actionBar = activity.actionBar;
@@ -143,7 +141,6 @@ public class LoginActivity extends AbsTelegramActivity {
         }
 
         public void open(int position) {
-            current = position;
             actionBar.removeAllViews();
             switch (position) {
                 case PHONE_PAGE_IDX:

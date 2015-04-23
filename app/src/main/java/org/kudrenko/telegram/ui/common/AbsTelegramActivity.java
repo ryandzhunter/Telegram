@@ -35,4 +35,8 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
     public void send(TdApi.TLFunction function, Client.ResultHandler handler) {
         application.send(function, handler);
     }
+
+    public void send(TdApi.TLFunction function) {
+        application.send(function, null);
+    }
 }

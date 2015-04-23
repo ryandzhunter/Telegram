@@ -11,6 +11,7 @@ import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.TelegramApplication;
+import org.kudrenko.telegram.api.Errors;
 
 @EFragment
 public abstract class AbsTelegramFragment extends Fragment {
@@ -20,7 +21,7 @@ public abstract class AbsTelegramFragment extends Fragment {
     @UiThread
     protected void showError(TdApi.Error error) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.error).setMessage(error.text);
+        builder.setTitle(R.string.error).setMessage(Errors.find(error.text));
         builder.show();
     }
 

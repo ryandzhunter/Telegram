@@ -86,6 +86,7 @@ public class LoginActivity extends AbsTelegramActivity {
         int currentItem = pager.getCurrentItem();
         if (currentItem > 0) {
             pager.setCurrentItem(currentItem - 1, true);
+            send(new TdApi.AuthReset());
         } else finish();
     }
 

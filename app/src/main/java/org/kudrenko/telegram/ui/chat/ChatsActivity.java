@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.Drawer;
+import com.squareup.otto.Subscribe;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
@@ -16,10 +17,15 @@ import org.androidannotations.annotations.ViewById;
 import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
-import org.kudrenko.telegram.adapters.AbsPagingAdapter;
+import org.kudrenko.telegram.adapters.AbsFileContainerPagingAdapter;
 import org.kudrenko.telegram.model.Profile;
+import org.kudrenko.telegram.otto.events.UpdateFileEvent;
 import org.kudrenko.telegram.ui.common.AbsRefreshableActivity;
 import org.kudrenko.telegram.ui.drawer.DrawerWorker;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @EActivity(R.layout.activity_chats)
 public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActivity.ChatsAdapter.ViewHolder, ChatsActivity.ChatsAdapter> {
@@ -75,10 +81,36 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
         return new ChatsAdapter(this);
     }
 
-    class ChatsAdapter extends AbsPagingAdapter<TdApi.Chat, ChatsAdapter.ViewHolder> {
+    class ChatsAdapter extends AbsFileContainerPagingAdapter<TdApi.Chat, ChatsAdapter.ViewHolder> {
 
         public ChatsAdapter(Context mContext) {
             super(mContext);
+        }
+
+        @Override
+        public void updateFile(TdApi.FileLocal file) {
+            for (TdApi.Chat chat : items) {
+                TdApi.ChatInfo type = chat.type;
+                TdApi.File chatFile;
+                if (type instanceof TdApi.GroupChatInfo) {
+                    TdApi.GroupChat groupChat = ((TdApi.GroupChatInfo) type).groupChat;
+                    chatFile = groupChat.photoSmall;
+
+                    if (chatFile.getConstructor() == TdApi.FileEmpty.CONSTRUCTOR && ((TdApi.FileEmpty) chatFile).id == file.id) {
+                        groupChat.photoSmall = file;
+                        break;
+                    }
+                } else if (type instanceof TdApi.PrivateChatInfo) {
+                    TdApi.User user = ((TdApi.PrivateChatInfo) type).user;
+                    chatFile = user.photoSmall;
+
+                    if (chatFile.getConstructor() == TdApi.FileEmpty.CONSTRUCTOR && ((TdApi.FileEmpty) chatFile).id == file.id) {
+                        user.photoSmall = file;
+                        break;
+                    }
+                }
+            }
+            notifyDataSetChanged();
         }
 
         @Override
@@ -90,6 +122,7 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
         protected void bindView(ViewHolder viewHolder, TdApi.Chat item_) {
             viewHolder.chatName.setText(getChatName(item_));
             viewHolder.chatLastMessage.setText(getChatLastMessage(item_));
+            viewHolder.chatTime.setText(convertTime(item_.topMessage.forwardDate));
             displayImage(getChatAvatar(item_), viewHolder.chatAvatar);
         }
 
@@ -97,6 +130,7 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
         protected void bindHolder(ViewHolder viewHolder, View convertView) {
             viewHolder.chatName = (TextView) convertView.findViewById(R.id.chat_name);
             viewHolder.chatLastMessage = (TextView) convertView.findViewById(R.id.chat_last_message);
+            viewHolder.chatTime = (TextView) convertView.findViewById(R.id.chat_time);
 
             viewHolder.chatAvatar = (ImageView) convertView.findViewById(R.id.chat_avatar);
         }
@@ -145,9 +179,20 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
         class ViewHolder {
             TextView chatName;
             TextView chatLastMessage;
+            TextView chatTime;
 
             ImageView chatAvatar;
         }
+    }
+
+    @Subscribe
+    public void onFileUpdate(UpdateFileEvent event) {
+        adapter.updateFile(event.file);
+    }
+
+    private String convertTime(int forwardDate) {
+        Date date = new Date(forwardDate);
+        return SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(date);
     }
 
     @ItemClick(android.R.id.list)

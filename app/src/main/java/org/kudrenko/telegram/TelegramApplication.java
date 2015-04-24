@@ -17,6 +17,7 @@ import org.drinkless.td.libcore.telegram.TG;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.otto.OttoBus;
 import org.kudrenko.telegram.otto.events.AuthStateUpdateEvent;
+import org.kudrenko.telegram.otto.events.UpdateFileEvent;
 import org.kudrenko.telegram.storage.CountriesDatabaseHelper;
 
 import java.io.File;
@@ -74,10 +75,14 @@ public class TelegramApplication extends Application {
                 //nothing
             }
 
-        TG.setDir(path + "/");
+        TG.setDir(getExternalCacheDir().getPath() + "/");
         TG.setUpdatesHandler(new Client.ResultHandler() {
             @Override
             public void onResult(TdApi.TLObject object) {
+                if (object.getConstructor() == TdApi.UpdateFile.CONSTRUCTOR) {
+                    TdApi.UpdateFile file = (TdApi.UpdateFile) object;
+                    ottoBus.post(new UpdateFileEvent(new TdApi.FileLocal(file.fileId, file.size, file.path)));
+                }
                 Log.i(TAG + " - setUpdatesHandler", object.toString());
             }
         });

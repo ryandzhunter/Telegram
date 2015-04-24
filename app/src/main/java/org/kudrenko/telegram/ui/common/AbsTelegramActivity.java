@@ -21,6 +21,8 @@ import org.kudrenko.telegram.api.Errors;
 import org.kudrenko.telegram.otto.OttoBus;
 import org.kudrenko.telegram.ui.AbsTelegramFragment;
 
+import java.io.File;
+
 @EActivity
 public abstract class AbsTelegramActivity extends ActionBarActivity {
     protected final String TAG = getClass().getName();
@@ -133,6 +135,6 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
     }
 
     private void show(TdApi.FileLocal file, ImageView imageView) {
-        Picasso.with(this).load(file.path).into(imageView);
+        Picasso.with(this).load(new File(file.path)).into(imageView);
     }
 }

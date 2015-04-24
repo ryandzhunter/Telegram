@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.drinkless.td.libcore.telegram.Client;
@@ -13,7 +12,6 @@ import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.adapters.AbsPagingAdapter;
 import org.kudrenko.telegram.ui.common.AbsRefreshableActivity;
-import org.kudrenko.telegram.ui.drawer.DrawerWorker;
 
 @EActivity(R.layout.activity_chat)
 public class ChatActivity extends AbsRefreshableActivity<TdApi.Message, ChatActivity.MessageAdapter.ViewHolder, ChatActivity.MessageAdapter> {
@@ -23,12 +21,8 @@ public class ChatActivity extends AbsRefreshableActivity<TdApi.Message, ChatActi
     @Extra("last_message")
     int lastMessage;
 
-    @Bean
-    DrawerWorker drawerWorker;
-
     @Override
     protected void afterViews() {
-        drawerWorker.initDrawer();
         super.afterViews();
     }
 

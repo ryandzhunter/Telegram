@@ -53,8 +53,8 @@ public class CountriesDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor countries(SQLiteDatabase db) {
-        return db.query(TABLE_NAME, new String[]{BaseColumns._ID, NAME, CODE}, null, null, null, null, NAME + " ASC");
+    public Cursor countries() {
+        return getReadableDatabase().query(TABLE_NAME, new String[]{BaseColumns._ID, NAME, CODE}, null, null, null, null, NAME + " ASC");
     }
 
     static String convertStreamToString(java.io.InputStream is) {

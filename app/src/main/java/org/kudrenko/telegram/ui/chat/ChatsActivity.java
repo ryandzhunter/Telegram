@@ -1,7 +1,7 @@
 package org.kudrenko.telegram.ui.chat;
 
 import android.content.Context;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,11 +9,13 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.adapters.AbsPagingAdapter;
+import org.kudrenko.telegram.model.Profile;
 import org.kudrenko.telegram.ui.common.AbsRefreshableActivity;
 import org.kudrenko.telegram.ui.drawer.DrawerWorker;
 
@@ -26,25 +28,45 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
     @ViewById
     TextView title;
 
+    protected boolean isDrawerInit = false;
+
     @Override
     protected void afterViews() {
-        drawerWorker.initDrawer();
-        title.setText(R.string.title_chat);
         super.afterViews();
+        title.setText(R.string.title_chat);
+    }
+
+    private void loadUserInfo() {
+        if (!isDrawerInit)
+            send(new TdApi.GetMe(), resultHandler(new Client.ResultHandler() {
+                @Override
+                public void onResult(TdApi.TLObject object) {
+                    if (object.getConstructor() == TdApi.User.CONSTRUCTOR) {
+                        isDrawerInit = true;
+                        initDrawer((TdApi.User) object);
+                    }
+                }
+            }));
+    }
+
+    @UiThread
+    protected void initDrawer(TdApi.User user) {
+        String username = TextUtils.isEmpty(user.firstName) ? user.username : user.firstName + " " + user.lastName;
+        drawerWorker.initDrawer(new Profile(username, user.phoneNumber, user.photoSmall));
     }
 
     @Override
     protected void update(final boolean reload) {
-        application.send(new TdApi.GetChats(reload ? 0 : adapter.getCount(), LIMIT), new Client.ResultHandler() {
+        send(new TdApi.GetChats(reload ? 0 : adapter.getCount(), LIMIT), resultHandler(new Client.ResultHandler() {
             @Override
             public void onResult(TdApi.TLObject object) {
                 if (object instanceof TdApi.Chats) {
                     setData(((TdApi.Chats) object).chats, reload);
+                    loadUserInfo();
                 }
                 refreshLayout.setRefreshing(false);
-                Log.i(TAG + " - GetChats", String.valueOf(object));
             }
-        });
+        }));
     }
 
     @Override

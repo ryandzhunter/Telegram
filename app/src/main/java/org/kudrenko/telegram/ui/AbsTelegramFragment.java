@@ -2,7 +2,6 @@ package org.kudrenko.telegram.ui;
 
 import android.app.AlertDialog;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EFragment;
@@ -44,12 +43,6 @@ public abstract class AbsTelegramFragment extends Fragment {
 
     protected Client.ResultHandler resultHandler() {
         return resultHandler(null);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("onDestroy", getClass().getName());
     }
 
     public void send(TdApi.TLFunction function, Client.ResultHandler handler) {

@@ -1,8 +1,14 @@
 package org.kudrenko.telegram;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.ImageView;
+
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
@@ -19,7 +25,6 @@ public class TelegramApplication extends Application {
 
     private Client client;
     public CountriesDatabaseHelper helper;
-    public SQLiteDatabase sqLiteDatabase;
 
     @Bean
     OttoBus ottoBus;
@@ -29,9 +34,31 @@ public class TelegramApplication extends Application {
         super.onCreate();
 
         initClient();
+        initCountryDB();
+        initDrawerImageLoader();
+    }
 
+    private void initDrawerImageLoader() {
+        DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+            }
+
+            @Override
+            public Drawable placeholder(Context ctx) {
+                return null;
+            }
+        });
+    }
+
+    private void initCountryDB() {
         helper = new CountriesDatabaseHelper(this);
-        sqLiteDatabase = helper.getReadableDatabase();
     }
 
     private void initClient() {

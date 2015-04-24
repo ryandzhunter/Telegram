@@ -1,6 +1,7 @@
 package org.kudrenko.telegram.ui.common;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 
@@ -60,8 +61,18 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
     }
 
     @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public Cursor countries() {
+        return application.helper.countries(application.sqLiteDatabase);
     }
 }

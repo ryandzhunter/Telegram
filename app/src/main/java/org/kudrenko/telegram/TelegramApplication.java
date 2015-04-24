@@ -1,6 +1,7 @@
 package org.kudrenko.telegram;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.androidannotations.annotations.Bean;
@@ -17,8 +18,8 @@ public class TelegramApplication extends Application {
     public static final String TAG = TelegramApplication.class.getName();
 
     private Client client;
-    private TdApi.AuthState authState;
-    private CountriesDatabaseHelper countriesDatabaseHelper;
+    public CountriesDatabaseHelper helper;
+    public SQLiteDatabase sqLiteDatabase;
 
     @Bean
     OttoBus ottoBus;
@@ -28,8 +29,9 @@ public class TelegramApplication extends Application {
         super.onCreate();
 
         initClient();
-        getCurrentAuthState();
-        countriesDatabaseHelper = new CountriesDatabaseHelper(this);
+
+        helper = new CountriesDatabaseHelper(this);
+        sqLiteDatabase = helper.getReadableDatabase();
     }
 
     private void initClient() {
@@ -44,7 +46,6 @@ public class TelegramApplication extends Application {
     }
 
     private void onAuthStateUpdate(TdApi.AuthState authState) {
-        this.authState = authState;
         ottoBus.post(new AuthStateUpdateEvent(authState));
     }
 

@@ -70,11 +70,8 @@ public class LoginActivity extends AbsTelegramActivity {
         }
     }
 
-    public void showCountriesDialog() {
-    }
-
     public void scrollBack() {
-        //todo возможно, что после телефона будет ввод имени, а не кода
+        //todo probably the name input might me after phone
         int currentItem = pager.getCurrentItem();
         if (currentItem > 0) {
             pager.setCurrentItem(currentItem - 1, true);

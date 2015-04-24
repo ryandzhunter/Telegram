@@ -1,19 +1,4 @@
-CREATE TABLE IF NOT EXISTS `country` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `iso` char(2) NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `nicename` varchar(80) NOT NULL,
-  `iso3` char(3) DEFAULT NULL,
-  `numcode` smallint(6) DEFAULT NULL,
-  `phonecode` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `country`
---
-
-INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
+INSERT INTO country (idx, iso, name, nicename, iso3, numcode, phonecode) VALUES
 (1, 'AF', 'AFGHANISTAN', 'Afghanistan', 'AFG', 4, 93),
 (2, 'AL', 'ALBANIA', 'Albania', 'ALB', 8, 355),
 (3, 'DZ', 'ALGERIA', 'Algeria', 'DZA', 12, 213),
@@ -21,7 +6,6 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (5, 'AD', 'ANDORRA', 'Andorra', 'AND', 20, 376),
 (6, 'AO', 'ANGOLA', 'Angola', 'AGO', 24, 244),
 (7, 'AI', 'ANGUILLA', 'Anguilla', 'AIA', 660, 1264),
-(8, 'AQ', 'ANTARCTICA', 'Antarctica', NULL, NULL, 0),
 (9, 'AG', 'ANTIGUA AND BARBUDA', 'Antigua and Barbuda', 'ATG', 28, 1268),
 (10, 'AR', 'ARGENTINA', 'Argentina', 'ARG', 32, 54),
 (11, 'AM', 'ARMENIA', 'Armenia', 'ARM', 51, 374),
@@ -42,7 +26,6 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (26, 'BO', 'BOLIVIA', 'Bolivia', 'BOL', 68, 591),
 (27, 'BA', 'BOSNIA AND HERZEGOVINA', 'Bosnia and Herzegovina', 'BIH', 70, 387),
 (28, 'BW', 'BOTSWANA', 'Botswana', 'BWA', 72, 267),
-(29, 'BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL, 0),
 (30, 'BR', 'BRAZIL', 'Brazil', 'BRA', 76, 55),
 (31, 'IO', 'BRITISH INDIAN OCEAN TERRITORY', 'British Indian Ocean Territory', NULL, NULL, 246),
 (32, 'BN', 'BRUNEI DARUSSALAM', 'Brunei Darussalam', 'BRN', 96, 673),
@@ -89,7 +72,6 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (73, 'FR', 'FRANCE', 'France', 'FRA', 250, 33),
 (74, 'GF', 'FRENCH GUIANA', 'French Guiana', 'GUF', 254, 594),
 (75, 'PF', 'FRENCH POLYNESIA', 'French Polynesia', 'PYF', 258, 689),
-(76, 'TF', 'FRENCH SOUTHERN TERRITORIES', 'French Southern Territories', NULL, NULL, 0),
 (77, 'GA', 'GABON', 'Gabon', 'GAB', 266, 241),
 (78, 'GM', 'GAMBIA', 'Gambia', 'GMB', 270, 220),
 (79, 'GE', 'GEORGIA', 'Georgia', 'GEO', 268, 995),
@@ -106,7 +88,6 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (90, 'GW', 'GUINEA-BISSAU', 'Guinea-Bissau', 'GNB', 624, 245),
 (91, 'GY', 'GUYANA', 'Guyana', 'GUY', 328, 592),
 (92, 'HT', 'HAITI', 'Haiti', 'HTI', 332, 509),
-(93, 'HM', 'HEARD ISLAND AND MCDONALD ISLANDS', 'Heard Island and Mcdonald Islands', NULL, NULL, 0),
 (94, 'VA', 'HOLY SEE (VATICAN CITY STATE)', 'Holy See (Vatican City State)', 'VAT', 336, 39),
 (95, 'HN', 'HONDURAS', 'Honduras', 'HND', 340, 504),
 (96, 'HK', 'HONG KONG', 'Hong Kong', 'HKG', 344, 852),
@@ -183,14 +164,13 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (167, 'PY', 'PARAGUAY', 'Paraguay', 'PRY', 600, 595),
 (168, 'PE', 'PERU', 'Peru', 'PER', 604, 51),
 (169, 'PH', 'PHILIPPINES', 'Philippines', 'PHL', 608, 63),
-(170, 'PN', 'PITCAIRN', 'Pitcairn', 'PCN', 612, 0),
 (171, 'PL', 'POLAND', 'Poland', 'POL', 616, 48),
 (172, 'PT', 'PORTUGAL', 'Portugal', 'PRT', 620, 351),
 (173, 'PR', 'PUERTO RICO', 'Puerto Rico', 'PRI', 630, 1787),
 (174, 'QA', 'QATAR', 'Qatar', 'QAT', 634, 974),
 (175, 'RE', 'REUNION', 'Reunion', 'REU', 638, 262),
 (176, 'RO', 'ROMANIA', 'Romania', 'ROM', 642, 40),
-(177, 'RU', 'RUSSIAN FEDERATION', 'Russian Federation', 'RUS', 643, 7),
+(177, 'RU', 'RUSSIAN FEDERATION', 'Russia', 'RUS', 643, 7),
 (178, 'RW', 'RWANDA', 'Rwanda', 'RWA', 646, 250),
 (179, 'SH', 'SAINT HELENA', 'Saint Helena', 'SHN', 654, 290),
 (180, 'KN', 'SAINT KITTS AND NEVIS', 'Saint Kitts and Nevis', 'KNA', 659, 1869),
@@ -211,7 +191,6 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (195, 'SB', 'SOLOMON ISLANDS', 'Solomon Islands', 'SLB', 90, 677),
 (196, 'SO', 'SOMALIA', 'Somalia', 'SOM', 706, 252),
 (197, 'ZA', 'SOUTH AFRICA', 'South Africa', 'ZAF', 710, 27),
-(198, 'GS', 'SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS', 'South Georgia and the South Sandwich Islands', NULL, NULL, 0),
 (199, 'ES', 'SPAIN', 'Spain', 'ESP', 724, 34),
 (200, 'LK', 'SRI LANKA', 'Sri Lanka', 'LKA', 144, 94),
 (201, 'SD', 'SUDAN', 'Sudan', 'SDN', 736, 249),
@@ -254,7 +233,6 @@ INSERT INTO `country` (`id`, `iso`, `name`, `nicename`, `iso3`, `numcode`, `phon
 (238, 'ZM', 'ZAMBIA', 'Zambia', 'ZMB', 894, 260),
 (239, 'ZW', 'ZIMBABWE', 'Zimbabwe', 'ZWE', 716, 263),
 (240, 'RS', 'SERBIA', 'Serbia', 'SRB', 688, 381),
-(241, 'AP', 'ASIA PACIFIC REGION', 'Asia / Pacific Region', '0', 0, 0),
 (242, 'ME', 'MONTENEGRO', 'Montenegro', 'MNE', 499, 382),
 (243, 'AX', 'ALAND ISLANDS', 'Aland Islands', 'ALA', 248, 358),
 (244, 'BQ', 'BONAIRE, SINT EUSTATIUS AND SABA', 'Bonaire, Sint Eustatius and Saba', 'BES', 535, 599),

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -29,7 +30,14 @@ public class CountriesChooserActivity extends AbsTelegramActivity {
 
         adapter = new SimpleCursorAdapter(this, R.layout.item_country, null,
                 new String[]{CountriesDatabaseHelper.NAME, CountriesDatabaseHelper.CODE},
-                new int[]{android.R.id.text1, android.R.id.text2}, 0);
+                new int[]{android.R.id.text1, android.R.id.text2}, 0) {
+            @Override
+            public void setViewText(TextView v, String text) {
+                if (v.getId() == android.R.id.text2) {
+                    super.setViewText(v, "+" + text);
+                } else super.setViewText(v, text);
+            }
+        };
     }
 
     @AfterViews

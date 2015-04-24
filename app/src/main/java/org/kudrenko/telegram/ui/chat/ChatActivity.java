@@ -3,6 +3,7 @@ package org.kudrenko.telegram.ui.chat;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.EActivity;
@@ -45,9 +46,14 @@ public class ChatActivity extends AbsRefreshableActivity<TdApi.Message, ChatActi
         });
     }
 
-    static class MessageAdapter extends AbsPagingAdapter<TdApi.Message, MessageAdapter.ViewHolder> {
+    class MessageAdapter extends AbsPagingAdapter<TdApi.Message, MessageAdapter.ViewHolder> {
         public MessageAdapter(Context mContext) {
             super(mContext);
+        }
+
+        @Override
+        protected void displayImage(TdApi.File file, ImageView imageView) {
+            ChatActivity.this.displayImage(file, imageView);
         }
 
         @Override
@@ -78,7 +84,7 @@ public class ChatActivity extends AbsRefreshableActivity<TdApi.Message, ChatActi
             return new ViewHolder();
         }
 
-        static class ViewHolder {
+        class ViewHolder {
             TextView messageText;
         }
     }

@@ -19,6 +19,9 @@ import org.kudrenko.telegram.otto.OttoBus;
 import org.kudrenko.telegram.otto.events.AuthStateUpdateEvent;
 import org.kudrenko.telegram.storage.CountriesDatabaseHelper;
 
+import java.io.File;
+import java.io.IOException;
+
 @EApplication
 public class TelegramApplication extends Application {
     public static final String TAG = TelegramApplication.class.getName();
@@ -62,7 +65,16 @@ public class TelegramApplication extends Application {
     }
 
     private void initClient() {
-        TG.setDir(getFilesDir().getPath());
+        String path = getFilesDir().getPath();
+        File file = new File(path);
+        if (!file.exists())
+            try {
+                file.createNewFile();
+            } catch (IOException ignored) {
+                //nothing
+            }
+
+        TG.setDir(path + "/");
         TG.setUpdatesHandler(new Client.ResultHandler() {
             @Override
             public void onResult(TdApi.TLObject object) {

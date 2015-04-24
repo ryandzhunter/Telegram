@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -109,5 +112,27 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
 
     public int localizeError(TdApi.Error error) {
         return Errors.find(error.text);
+    }
+
+    public void displayImage(final TdApi.File file, final ImageView imageView) {
+        if (file.getConstructor() == TdApi.FileEmpty.CONSTRUCTOR) {
+            int id = ((TdApi.FileEmpty) file).id;
+            if (id != 0) {
+                send(new TdApi.DownloadFile(id), new Client.ResultHandler() {
+                    @Override
+                    public void onResult(TdApi.TLObject object) {
+                        if (object.getConstructor() == TdApi.FileLocal.CONSTRUCTOR) {
+                            show((TdApi.FileLocal) object, imageView);
+                        }
+                    }
+                });
+            }
+        } else if (file.getConstructor() == TdApi.FileLocal.CONSTRUCTOR) {
+            show((TdApi.FileLocal) file, imageView);
+        }
+    }
+
+    private void show(TdApi.FileLocal file, ImageView imageView) {
+        Picasso.with(this).load(file.path).into(imageView);
     }
 }

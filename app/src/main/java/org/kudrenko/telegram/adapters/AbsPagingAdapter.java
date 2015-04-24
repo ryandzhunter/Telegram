@@ -6,7 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.paging.listview.PagingBaseAdapter;
-import com.squareup.picasso.Picasso;
+
+import org.drinkless.td.libcore.telegram.TdApi;
 
 import java.util.List;
 
@@ -55,13 +56,11 @@ public abstract class AbsPagingAdapter<Item, Holder> extends PagingBaseAdapter<I
         return convertView;
     }
 
-    protected void displayImage(String url, ImageView imageView) {
-        Picasso.with(mContext).load(url).into(imageView);
-    }
-
     protected Item getItem_(int position) {
         return (Item) getItem(position);
     }
+
+    protected abstract void displayImage(TdApi.File file, ImageView imageView);
 
     protected abstract void bindView(Holder holder, Item item_);
 

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.materialdrawer.Drawer;
+
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
@@ -28,7 +30,7 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
     @ViewById
     TextView title;
 
-    protected boolean isDrawerInit = false;
+    protected Drawer.Result drawerResult;
 
     @Override
     protected void afterViews() {
@@ -37,12 +39,11 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
     }
 
     private void loadUserInfo() {
-        if (!isDrawerInit)
+        if (drawerResult == null)
             send(new TdApi.GetMe(), resultHandler(new Client.ResultHandler() {
                 @Override
                 public void onResult(TdApi.TLObject object) {
                     if (object.getConstructor() == TdApi.User.CONSTRUCTOR) {
-                        isDrawerInit = true;
                         initDrawer((TdApi.User) object);
                     }
                 }
@@ -52,7 +53,7 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
     @UiThread
     protected void initDrawer(TdApi.User user) {
         String username = TextUtils.isEmpty(user.firstName) ? user.username : user.firstName + " " + user.lastName;
-        drawerWorker.initDrawer(new Profile(username, user.phoneNumber, user.photoSmall));
+        drawerResult = drawerWorker.initDrawer(new Profile(username, user.phoneNumber, user.photoSmall));
     }
 
     @Override
@@ -74,10 +75,15 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
         return new ChatsAdapter(this);
     }
 
-    static class ChatsAdapter extends AbsPagingAdapter<TdApi.Chat, ChatsAdapter.ViewHolder> {
+    class ChatsAdapter extends AbsPagingAdapter<TdApi.Chat, ChatsAdapter.ViewHolder> {
 
         public ChatsAdapter(Context mContext) {
             super(mContext);
+        }
+
+        @Override
+        protected void displayImage(TdApi.File file, ImageView imageView) {
+            ChatsActivity.this.displayImage(file, imageView);
         }
 
         @Override
@@ -124,19 +130,19 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsActiv
             } else return "Content";
         }
 
-        private String getChatAvatar(TdApi.Chat chat) {
+        private TdApi.File getChatAvatar(TdApi.Chat chat) {
             TdApi.ChatInfo type = chat.type;
             if (type instanceof TdApi.GroupChatInfo) {
                 TdApi.GroupChat groupChat = ((TdApi.GroupChatInfo) type).groupChat;
-                return groupChat.photoSmall.toString();
+                return groupChat.photoSmall;
             } else if (type instanceof TdApi.PrivateChatInfo) {
                 TdApi.User user = ((TdApi.PrivateChatInfo) type).user;
-                return user.photoSmall.toString();
+                return user.photoSmall;
             }
-            return "";
+            return null;
         }
 
-        static class ViewHolder {
+        class ViewHolder {
             TextView chatName;
             TextView chatLastMessage;
 

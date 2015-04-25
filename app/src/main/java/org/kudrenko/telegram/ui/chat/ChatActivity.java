@@ -1,6 +1,5 @@
 package org.kudrenko.telegram.ui.chat;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +28,7 @@ public class ChatActivity extends AbsRefreshableActivity<TdApi.Message, ChatActi
 
     @Override
     protected MessageAdapter createAdapter() {
-        return new MessageAdapter(this);
+        return new MessageAdapter();
     }
 
     @Override
@@ -47,13 +46,13 @@ public class ChatActivity extends AbsRefreshableActivity<TdApi.Message, ChatActi
     }
 
     class MessageAdapter extends AbsPagingAdapter<TdApi.Message, MessageAdapter.ViewHolder> {
-        public MessageAdapter(Context mContext) {
-            super(mContext);
+        public MessageAdapter() {
+            super();
         }
 
         @Override
         protected void displayImage(TdApi.File file, ImageView imageView) {
-            ChatActivity.this.displayImage(file, imageView);
+//            ChatActivity.this.displayImage(file, imageView);
         }
 
         @Override

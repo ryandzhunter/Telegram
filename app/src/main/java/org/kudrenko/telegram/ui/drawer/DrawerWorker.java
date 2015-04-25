@@ -1,7 +1,6 @@
 package org.kudrenko.telegram.ui.drawer;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -11,8 +10,11 @@ import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.squareup.otto.Subscribe;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.SystemService;
@@ -21,6 +23,8 @@ import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.TelegramApplication;
 import org.kudrenko.telegram.model.Profile;
+import org.kudrenko.telegram.otto.OttoBus;
+import org.kudrenko.telegram.otto.events.UpdateFileEvent;
 import org.kudrenko.telegram.ui.login.LoginActivity_;
 
 @EBean
@@ -36,10 +40,30 @@ public class DrawerWorker implements Drawer.OnDrawerListener, Drawer.OnDrawerIte
     @SystemService
     InputMethodManager inputMethodManager;
 
+    @Bean
+    OttoBus ottoBus;
+
+    @AfterInject
+    void afterInject() {
+        ottoBus.register(this);
+    }
+
+    protected int fileId;
+
+    @Subscribe
+    public void onFileDownload(UpdateFileEvent event) {
+        TdApi.FileLocal fileLocal = event.file;
+        if (fileLocal.id == fileId) {}
+        //todo something with new avatar
+    }
+
     public Drawer.Result initDrawer(Profile profile) {
         ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem().withName(profile.name).withEmail(profile.phone);
-        if (!TextUtils.isEmpty(profile.icon)) {
-            profileDrawerItem.withIcon(profile.icon);
+        if (profile.file.getConstructor() == TdApi.FileEmpty.CONSTRUCTOR) {
+            fileId = ((TdApi.FileEmpty) profile.file).id;
+            application.send(new TdApi.DownloadFile(fileId));
+        } else if (profile.file.getConstructor() == TdApi.FileLocal.CONSTRUCTOR) {
+            profileDrawerItem.withIcon(((TdApi.FileLocal) profile.file).path);
         }
 
         AccountHeader.Result header = new AccountHeader()

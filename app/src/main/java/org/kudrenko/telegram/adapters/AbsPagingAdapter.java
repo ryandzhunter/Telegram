@@ -7,20 +7,22 @@ import android.widget.ImageView;
 
 import com.paging.listview.PagingBaseAdapter;
 
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 import org.drinkless.td.libcore.telegram.TdApi;
 
 import java.util.List;
 
+@EBean
 public abstract class AbsPagingAdapter<Item, Holder> extends PagingBaseAdapter<Item> {
+    @RootContext
     protected Context mContext;
 
-    public AbsPagingAdapter(Context mContext) {
-        this.mContext = mContext;
+    public AbsPagingAdapter() {
     }
 
-    public AbsPagingAdapter(List<Item> items, Context mContext) {
+    public AbsPagingAdapter(List<Item> items) {
         super(items);
-        this.mContext = mContext;
     }
 
     @Override

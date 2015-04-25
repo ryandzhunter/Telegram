@@ -1,6 +1,5 @@
 package org.kudrenko.telegram.ui.login.fragment;
 
-import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,7 +17,6 @@ import org.androidannotations.annotations.ViewById;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.model.Country;
-import org.kudrenko.telegram.storage.CountriesDatabaseHelper;
 import org.kudrenko.telegram.ui.login.CountriesChooserActivity_;
 
 import java.io.IOException;
@@ -55,19 +53,15 @@ public class PhoneInputFragment extends AbsLoginFragment {
         if (country == null) {
             try {
                 String lastKnownCountry = getLastKnownCountry();
-                Cursor cursor = find(lastKnownCountry);
-                if (cursor.moveToFirst()) {
-                    Country country = new Country(cursor.getString(cursor.getColumnIndex(CountriesDatabaseHelper.NAME)),
-                            cursor.getInt(cursor.getColumnIndex(CountriesDatabaseHelper.CODE)));
-                    setCountry(country);
-                }
+                Country country = find(lastKnownCountry);
+                setCountry(country);
             } catch (IOException e) {
                 //nothing
             }
         }
     }
 
-    private Cursor find(String country) {
+    private Country find(String country) {
         return application.helper.findByName(country);
     }
 

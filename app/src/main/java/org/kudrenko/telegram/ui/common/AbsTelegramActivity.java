@@ -2,12 +2,8 @@ package org.kudrenko.telegram.ui.common;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Bean;
@@ -18,10 +14,11 @@ import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.R;
 import org.kudrenko.telegram.TelegramApplication;
 import org.kudrenko.telegram.api.Errors;
+import org.kudrenko.telegram.model.Country;
 import org.kudrenko.telegram.otto.OttoBus;
 import org.kudrenko.telegram.ui.AbsTelegramFragment;
 
-import java.io.File;
+import java.util.List;
 
 @EActivity
 public abstract class AbsTelegramActivity extends ActionBarActivity {
@@ -80,7 +77,7 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public Cursor countries() {
+    public List<Country> countries() {
         return application.helper.countries();
     }
 
@@ -114,27 +111,5 @@ public abstract class AbsTelegramActivity extends ActionBarActivity {
 
     public int localizeError(TdApi.Error error) {
         return Errors.find(error.text);
-    }
-
-    public void displayImage(final TdApi.File file, final ImageView imageView) {
-        if (file.getConstructor() == TdApi.FileEmpty.CONSTRUCTOR) {
-            int id = ((TdApi.FileEmpty) file).id;
-            if (id != 0) {
-                send(new TdApi.DownloadFile(id), new Client.ResultHandler() {
-                    @Override
-                    public void onResult(TdApi.TLObject object) {
-                        if (object.getConstructor() == TdApi.FileLocal.CONSTRUCTOR) {
-                            show((TdApi.FileLocal) object, imageView);
-                        }
-                    }
-                });
-            }
-        } else if (file.getConstructor() == TdApi.FileLocal.CONSTRUCTOR) {
-            show((TdApi.FileLocal) file, imageView);
-        }
-    }
-
-    private void show(TdApi.FileLocal file, ImageView imageView) {
-        Picasso.with(this).load(new File(file.path)).into(imageView);
     }
 }

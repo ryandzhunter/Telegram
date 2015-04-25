@@ -46,7 +46,7 @@ public class TelegramApplication extends Application {
         DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+                Picasso.with(imageView.getContext()).load(new File(uri.getPath())).placeholder(placeholder).into(imageView);
             }
 
             @Override
@@ -66,16 +66,8 @@ public class TelegramApplication extends Application {
     }
 
     private void initClient() {
-        String path = getFilesDir().getPath();
-        File file = new File(path);
-        if (!file.exists())
-            try {
-                file.createNewFile();
-            } catch (IOException ignored) {
-                //nothing
-            }
+        setDir();
 
-        TG.setDir(getExternalCacheDir().getPath() + "/");
         TG.setUpdatesHandler(new Client.ResultHandler() {
             @Override
             public void onResult(TdApi.TLObject object) {
@@ -89,8 +81,25 @@ public class TelegramApplication extends Application {
         client = TG.getClientInstance();
     }
 
+    private void setDir() {
+        String path = getFilesDir().getPath();
+        File file = new File(path);
+        if (!file.exists())
+            try {
+                file.createNewFile();
+            } catch (IOException ignored) {
+                //nothing
+            }
+
+        TG.setDir(path + "/");
+    }
+
     private void onAuthStateUpdate(TdApi.AuthState authState) {
         ottoBus.post(new AuthStateUpdateEvent(authState));
+    }
+
+    public void send(TdApi.TLFunction function) {
+        send(function, null);
     }
 
     public void send(TdApi.TLFunction function, final Client.ResultHandler handler) {

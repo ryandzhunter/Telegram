@@ -6,8 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import org.kudrenko.telegram.model.Country;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CountriesDatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "countries";
@@ -53,8 +57,14 @@ public class CountriesDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor countries() {
-        return getReadableDatabase().query(TABLE_NAME, new String[]{BaseColumns._ID, NAME, CODE}, null, null, null, null, NAME + " ASC");
+    public List<Country> countries() {
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{BaseColumns._ID, NAME, CODE}, null, null, null, null, NAME + " ASC");
+        List<Country> countries = new ArrayList<>(cursor.getCount());
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            countries.add(fromCursor(cursor));
+        }
+        return countries;
     }
 
     static String convertStreamToString(java.io.InputStream is) {
@@ -62,7 +72,15 @@ public class CountriesDatabaseHelper extends SQLiteOpenHelper {
         return s.hasNext() ? s.next() : "";
     }
 
-    public Cursor findByName(String country) {
-        return getReadableDatabase().query(TABLE_NAME, new String[] {NAME, CODE}, NAME + " like ?", new String[]{country}, null, null, null);
+    public Country findByName(String country) {
+        Cursor cursor = getReadableDatabase().query(TABLE_NAME, new String[]{NAME, CODE}, NAME + " like ?", new String[]{country}, null, null, null);
+        if (cursor.moveToFirst()) {
+            return fromCursor(cursor);
+        }
+        return null;
+    }
+
+    private Country fromCursor(Cursor cursor) {
+        return new Country(cursor.getString(cursor.getColumnIndex(NAME)), cursor.getInt(cursor.getColumnIndex(CODE)));
     }
 }

@@ -9,6 +9,7 @@ import com.squareup.otto.Subscribe;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.drinkless.td.libcore.telegram.Client;
@@ -19,6 +20,7 @@ import org.kudrenko.telegram.model.Profile;
 import org.kudrenko.telegram.otto.events.UpdateFileEvent;
 import org.kudrenko.telegram.ui.common.AbsRefreshableActivity;
 import org.kudrenko.telegram.ui.drawer.DrawerWorker;
+import org.kudrenko.telegram.utils.NetworkHelper;
 
 @EActivity(R.layout.activity_chats)
 public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsAdapter.ViewHolder, ChatsAdapter> {
@@ -84,6 +86,13 @@ public class ChatsActivity extends AbsRefreshableActivity<TdApi.Chat, ChatsAdapt
 
     @ItemClick(android.R.id.list)
     void onChatSelect(TdApi.Chat chat) {
-        ChatActivity_.intent(this).chatId(chat.id).lastMessage(chat.lastReadInboxMessageId).start();
+//        ChatActivity_.intent(this).chatId(chat.id).lastMessage(chat.lastReadInboxMessageId).start();
+    }
+
+    @Receiver(actions = {"android.net.conn.CONNECTIVITY_CHANGE", "android.net.wifi.WIFI_STATE_CHANGED"})
+    void onConnectionChange() {
+        if (NetworkHelper.isOnline(this)) {
+            title.setText(R.string.title_chat);
+        } else title.setText(R.string.waiting_for_network);
     }
 }

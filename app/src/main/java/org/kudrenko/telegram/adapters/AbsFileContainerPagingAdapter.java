@@ -11,6 +11,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.drinkless.td.libcore.telegram.TdApi;
 import org.kudrenko.telegram.TelegramApplication;
+import org.kudrenko.telegram.components.RoundedTransformation;
 import org.kudrenko.telegram.otto.OttoBus;
 import org.kudrenko.telegram.otto.events.UpdateFileEvent;
 
@@ -53,7 +54,7 @@ public abstract class AbsFileContainerPagingAdapter<Item, Holder> extends AbsPag
     }
 
     private void show(TdApi.FileLocal file, ImageView imageView) {
-        Picasso.with(mContext).load(new File(file.path)).into(imageView);
+        Picasso.with(mContext).load(new File(file.path)).transform(new RoundedTransformation()).into(imageView);
     }
 
     @Subscribe

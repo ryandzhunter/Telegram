@@ -2,28 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/chat_avatar"
         android:padding="4dp"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_attach_photo"/>
+        android:layout_width="72dp"
+        android:layout_height="72dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingRight="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center_vertical">
+            android:paddingTop="12dp">
 
             <TextView
                 android:id="@+id/chat_name"
@@ -31,14 +29,19 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="17sp"
-                android:textColor="#222222"/>
+                android:textColor="#222222"
+                android:text="Alex Braun"
+                android:gravity="center_vertical"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/chat_time"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="13sp"
-                android:textColor="#999999"/>
+                android:textColor="#999999"
+                android:text="5:16 PM"
+                android:gravity="center_vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,14 +49,17 @@
             android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center_vertical">
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/chat_last_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="16sp"
-                android:textColor="#8a8a8a"/>
+                android:textColor="#8a8a8a"
+                android:text="Good luck then"
+                android:singleLine="true"
+                android:gravity="center_vertical" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
